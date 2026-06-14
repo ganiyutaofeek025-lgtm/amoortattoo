@@ -1181,7 +1181,7 @@ footer {
     <h2 class="section-title reveal">Book Your Session</h2>
     <div class="section-divider reveal"></div>
     <p class="booking-intro reveal">
-      Fill out the form below and Amorr will get back to you within 24–48 hours to confirm your appointment and discuss your design. For quicker responses, send a DM on <a href="https://www.tiktok.com/@amorr_tattoos1" target="_blank" style="color:var(--gold)">TikTok</a>.
+      Fill out the form below — when you submit, it'll open a WhatsApp chat with Amorr pre-filled with your details so you can send it directly. Prefer another way? Reach out via <a href="mailto:amorrtattoos457@gmail.com" style="color:var(--gold)">email</a> or <a href="https://www.tiktok.com/@amorr_tattoos1" target="_blank" style="color:var(--gold)">TikTok</a>.
     </p>
     <div class="booking-form reveal" id="bookingForm">
       <div class="form-content">
@@ -1260,8 +1260,8 @@ footer {
       </div>
       <div class="form-success">
         <div class="success-icon">🖤</div>
-        <div class="success-title">Request Received!</div>
-        <p class="success-text">Thanks for reaching out. Amorr will contact you within 24–48 hours to confirm your appointment and next steps. In the meantime, follow on Instagram or TikTok for the latest work.</p>
+        <div class="success-title">Opening WhatsApp...</div>
+        <p class="success-text">A WhatsApp chat with Amorr should now be open with your details pre-filled — just hit send! If it didn't open automatically, message <a href="https://wa.me/15743025172" target="_blank" style="color:var(--gold)">+1 (574) 302-5172</a> directly.</p>
         <div style="margin-top:1.5rem">
           <a href="https://www.tiktok.com/@amorr_tattoos1" target="_blank" class="btn-secondary">Follow on TikTok</a>
         </div>
@@ -1280,6 +1280,29 @@ footer {
     <div class="section-divider reveal"></div>
     <div class="contact-grid">
       <div class="reveal">
+        <div class="contact-info-item">
+          <div class="contact-info-icon">💬</div>
+          <div>
+            <div class="contact-info-label">WhatsApp</div>
+            <div class="contact-info-val"><a href="https://wa.me/15743025172" target="_blank">+1 (574) 302-5172</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon">✉️</div>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-val"><a href="mailto:amorrtattoos457@gmail.com">amorrtattoos457@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-info-icon" style="color:var(--gold)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.04 2 11c0 2.84 1.43 5.37 3.68 7.05-.06.96-.36 2.45-1.18 3.95-.1.18.03.4.24.4 1.91-.08 3.61-.84 4.83-1.66.74.17 1.53.26 2.43.26 5.52 0 10-4.04 10-9S17.52 2 12 2z"/></svg>
+          </div>
+          <div>
+            <div class="contact-info-label">iMessage</div>
+            <div class="contact-info-val"><a href="sms:yuyuicyink0@lnovic.com">yuyuicyink0@lnovic.com</a></div>
+          </div>
+        </div>
         <div class="contact-info-item">
           <div class="contact-info-icon">📱</div>
           <div>
@@ -1489,15 +1512,40 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
 
-// Form submission
+// Form submission - builds a WhatsApp message and opens a chat with Amorr
 document.getElementById("formSubmit").addEventListener("click", () => {
   const fname = document.getElementById("fname").value.trim();
+  const lname = document.getElementById("lname").value.trim();
   const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const service = document.getElementById("service").value;
+  const placement = document.getElementById("placement").value;
+  const date = document.getElementById("date").value;
+  const size = document.getElementById("size").value;
+  const details = document.getElementById("details").value.trim();
+
   if (!fname || !email) {
     alert("Please fill in your name and email to continue.");
     return;
   }
+
+  // Build a readable WhatsApp message
+  let msg = `Hi Amorr! I'd like to book a tattoo session.\n\n`;
+  msg += `*Name:* ${fname} ${lname}\n`;
+  msg += `*Email:* ${email}\n`;
+  if (phone) msg += `*Phone:* ${phone}\n`;
+  if (service) msg += `*Service:* ${service}\n`;
+  if (placement) msg += `*Placement:* ${placement}\n`;
+  if (size) msg += `*Size:* ${size}\n`;
+  if (date) msg += `*Preferred Date:* ${date}\n`;
+  if (details) msg += `\n*Details:*\n${details}`;
+
+  const whatsappUrl = `https://wa.me/15743025172?text=${encodeURIComponent(msg)}`;
+
   document.getElementById("bookingForm").classList.add("submitted");
+
+  // Open WhatsApp in a new tab/app
+  window.open(whatsappUrl, "_blank");
 });
 
 // Set min date for date picker
